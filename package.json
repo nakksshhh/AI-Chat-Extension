@@ -1,0 +1,184 @@
+{
+  "name": "ai-chat-assistant",
+  "displayName": "AI Chat Assistant",
+  "description": "AI-powered chat assistant with workspace context and file attachment support",
+  "version": "1.0.0",
+  "publisher": "your-publisher-name",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:aiChatAssistant.openChat"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "aiChatAssistant.openChat",
+        "title": "Open AI Chat",
+        "icon": "$(comment-discussion)"
+      }
+    ],
+    "viewsContainers": {
+      "panel": [
+        {
+          "id": "aiChatAssistant",
+          "title": "AI Chat Assistant",
+          "icon": "$(comment-discussion)"
+        }
+      ]
+    },
+    "views": {
+      "aiChatAssistant": [
+        {
+          "id": "aiChatAssistant.chatView",
+          "name": "Chat",
+          "type": "webview"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "AI Chat Assistant",
+      "properties": {
+        "aiChatAssistant.provider": {
+          "type": "string",
+          "default": "ollama",
+          "description": "AI provider to use",
+          "enum": [
+            "ollama",
+            "groq",
+            "openai",
+            "anthropic",
+            "custom"
+          ],
+          "enumDescriptions": [
+            "Ollama (Local AI models)",
+            "Groq (Fast inference)",
+            "OpenAI (GPT models)",
+            "Anthropic (Claude models)",
+            "Custom API endpoint"
+          ],
+          "scope": "application"
+        },
+        "aiChatAssistant.ollamaUrl": {
+          "type": "string",
+          "default": "http://localhost:11434",
+          "description": "Ollama server URL",
+          "scope": "application"
+        },
+        "aiChatAssistant.ollamaModel": {
+          "type": "string",
+          "default": "llama3.2",
+          "description": "Ollama model to use (e.g., llama3.2, codellama, mistral)",
+          "scope": "application"
+        },
+        "aiChatAssistant.groqApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Groq API Key",
+          "scope": "application"
+        },
+        "aiChatAssistant.groqModel": {
+          "type": "string",
+          "default": "llama-3.1-70b-versatile",
+          "description": "Groq model to use",
+          "enum": [
+            "llama-3.1-70b-versatile",
+            "llama-3.1-8b-instant",
+            "mixtral-8x7b-32768",
+            "gemma2-9b-it"
+          ],
+          "scope": "application"
+        },
+        "aiChatAssistant.openaiApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "OpenAI API Key",
+          "scope": "application"
+        },
+        "aiChatAssistant.openaiModel": {
+          "type": "string",
+          "default": "gpt-4",
+          "description": "OpenAI model to use",
+          "enum": [
+            "gpt-4",
+            "gpt-4-turbo",
+            "gpt-3.5-turbo"
+          ],
+          "scope": "application"
+        },
+        "aiChatAssistant.anthropicApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Anthropic API Key",
+          "scope": "application"
+        },
+        "aiChatAssistant.anthropicModel": {
+          "type": "string",
+          "default": "claude-3-sonnet-20240229",
+          "description": "Anthropic model to use",
+          "enum": [
+            "claude-3-opus-20240229",
+            "claude-3-sonnet-20240229",
+            "claude-3-haiku-20240307"
+          ],
+          "scope": "application"
+        },
+        "aiChatAssistant.customApiUrl": {
+          "type": "string",
+          "default": "",
+          "description": "Custom API endpoint URL",
+          "scope": "application"
+        },
+        "aiChatAssistant.customApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Custom API key",
+          "scope": "application"
+        },
+        "aiChatAssistant.customModel": {
+          "type": "string",
+          "default": "",
+          "description": "Custom model name",
+          "scope": "application"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "webpack --mode production",
+    "compile-dev": "webpack --mode development",
+    "watch": "webpack --mode development --watch",
+    "package": "vsce package",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "@vscode/test-electron": "^2.2.0",
+    "@vscode/vsce": "^2.15.0",
+    "css-loader": "^6.7.0",
+    "eslint": "^8.28.0",
+    "style-loader": "^3.3.0",
+    "ts-loader": "^9.4.0",
+    "typescript": "^4.9.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.0"
+  },
+  "dependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@vitejs/plugin-react": "^4.6.0",
+    "axios": "^1.6.0",
+    "lucide-react": "^0.523.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "vite": "^7.0.0"
+  }
+}
